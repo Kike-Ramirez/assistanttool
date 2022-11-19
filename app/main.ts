@@ -9,13 +9,26 @@ const args = process.argv.slice(1),
 function createWindow(): BrowserWindow {
 
   const size = screen.getPrimaryDisplay().workAreaSize;
+  const si = require('systeminformation');
+
+  si.cpu(function(data) {
+    console.log('CPU Information:');
+    console.log('- manufacturer: ' + data.manufacturer);
+    console.log('- brand: ' + data.brand);
+    console.log('- speed: ' + data.speed);
+    console.log('- cores: ' + data.cores);
+    console.log('- physical cores: ' + data.physicalCores);
+    console.log('...');
+  })
+  si.diskLayout().then(data => console.log(data));
+
 
   // Create the browser window.
   win = new BrowserWindow({
     x: 0,
     y: 0,
-    width: size.width,
-    height: size.height,
+    width: 680, //size.width,
+    height: 420, //size.height,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve),
